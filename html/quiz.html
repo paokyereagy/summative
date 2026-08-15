@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Specialisation Quiz - BSE Advisor</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">🎓 BSE Advisor</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="quiz.html" class="active">Quiz</a></li>
+                <li><a href="results.html">Results</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+        </div>
+    </nav>
+
+    <!-- Quiz Header -->
+    <section class="section quiz-header">
+        <div class="container">
+            <h1 class="section-title">Specialisation Assessment Quiz</h1>
+            <p class="section-subtitle">Answer all questions to find your ideal BSE specialisation</p>
+            
+            <!-- Timer and Progress -->
+            <div class="quiz-stats">
+                <div class="timer-container">
+                    <span class="timer-label">⏱️ Time Remaining</span>
+                    <div class="timer-display" id="timerDisplay">10:00</div>
+                </div>
+                <div class="progress-container">
+                    <span class="progress-label">Progress</span>
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0 / 10</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Content -->
+    <section class="section quiz-section">
+        <div class="container">
+            <div id="quizContainer">
+                <!-- Quiz cards will be dynamically rendered -->
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="quiz-controls">
+                <button class="btn btn-secondary" id="prevQuestion" disabled>← Previous</button>
+                <span class="question-counter" id="questionCounter">Question 1 of 10</span>
+                <button class="btn btn-primary" id="nextQuestion">Next →</button>
+                <button class="btn btn-success" id="submitQuiz" style="display: none;">Submit Quiz</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 BSE Specialisation Advisor. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/quiz.js"></script>
+</body>
+</html>

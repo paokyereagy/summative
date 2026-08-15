@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact - BSE Advisor</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">🎓 BSE Advisor</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+                <li><a href="results.html">Results</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+        </div>
+    </nav>
+
+    <!-- Contact Section -->
+    <section class="section contact-section">
+        <div class="container">
+            <h1 class="section-title">Contact & Feedback</h1>
+            <p class="section-subtitle">Have questions or feedback? Reach out to us!</p>
+
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form-wrapper">
+                    <h3>Send us a Message</h3>
+                    <form id="contactForm" novalidate>
+                        <div class="form-group">
+                            <label for="contactName">Your Name</label>
+                            <input 
+                                type="text" 
+                                id="contactName" 
+                                name="contactName" 
+                                placeholder="Enter your full name"
+                                required
+                            />
+                            <small class="error-message" id="contactNameError"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactEmail">Your Email</label>
+                            <input 
+                                type="email" 
+                                id="contactEmail" 
+                                name="contactEmail" 
+                                placeholder="student.id@alustudent.com"
+                                required
+                            />
+                            <small class="error-message" id="contactEmailError"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactSubject">Subject</label>
+                            <select id="contactSubject" name="contactSubject" required>
+                                <option value="">Select a subject</option>
+                                <option value="feedback">Feedback</option>
+                                <option value="question">Question about specialisations</option>
+                                <option value="bug">Report a bug</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <small class="error-message" id="contactSubjectError"></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactMessage">Message</label>
+                            <textarea 
+                                id="contactMessage" 
+                                name="contactMessage" 
+                                placeholder="Write your message here..."
+                                rows="5"
+                                required
+                            ></textarea>
+                            <small class="error-message" id="contactMessageError"></small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                    </form>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <h3>Project Information</h3>
+                    <div class="info-card">
+                        <h4>📁 GitHub Repository</h4>
+                        <p>
+                            <a href="https://github.com/paokyereagy/summative.git" target="_blank">
+                                View on GitHub
+                            </a>
+                        </p>
+                    </div>
+                    <div class="info-card">
+                        <h4>👨‍💻 Author</h4>
+                        <p><strong>Your Name</strong><br />BSc (Hons) Software Engineering<br />BSE, Mauritius</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>📅 Project Details</h4>
+                        <p>Frontend Web Development<br />June - October 2026</p>
+                    </div>
+                    <div class="info-card">
+                        <h4>🛠️ Technologies Used</h4>
+                        <p>HTML5 · CSS3 · JavaScript (ES6+)<br />Canvas 2D API · GitHub Pages</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 BSE Specialisation Advisor. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/contact.js"></script>
+</body>
+</html>

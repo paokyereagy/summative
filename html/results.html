@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Results - BSE Advisor</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">🎓 BSE Advisor</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+                <li><a href="results.html" class="active">Results</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+        </div>
+    </nav>
+
+    <!-- Results Section -->
+    <section class="section results-section">
+        <div class="container">
+            <h1 class="section-title">Your Specialisation Results</h1>
+            <p class="section-subtitle" id="studentGreeting">Based on your responses, here's your recommended path</p>
+
+            <!-- Canvas Chart -->
+            <div class="chart-container">
+                <h3>Your Skills Profile</h3>
+                <canvas id="resultsCanvas" width="400" height="400"></canvas>
+            </div>
+
+            <!-- Results Summary -->
+            <div class="results-summary" id="resultsSummary">
+                <!-- Dynamically populated -->
+            </div>
+
+            <!-- Recommendations -->
+            <div class="recommendations" id="recommendations">
+                <!-- Dynamically populated -->
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="results-actions">
+                <a href="quiz.html" class="btn btn-secondary">🔄 Retake Quiz</a>
+                <a href="index.html" class="btn btn-primary">🏠 Back to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 BSE Specialisation Advisor. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/results.js"></script>
+</body>
+</html>

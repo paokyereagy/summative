@@ -280,7 +280,7 @@ form.addEventListener('submit', function(e) {
             
             // Add a success animation/feedback
             const btn = document.getElementById('startQuizBtn');
-            btn.textContent = '✅ Redirecting...';
+            btn.textContent = ' Redirecting...';
             btn.disabled = true;
 
             // Redirect to quiz page after brief delay

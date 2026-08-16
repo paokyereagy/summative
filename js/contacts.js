@@ -216,7 +216,7 @@ contactForm.addEventListener('submit', function(e) {
         // Show success message
         const btn = contactForm.querySelector('button[type="submit"]');
         const originalText = btn.textContent;
-        btn.textContent = '✅ Message Sent!';
+        btn.textContent = ' Message Sent!';
         btn.style.background = '#28A745';
         btn.disabled = true;
 

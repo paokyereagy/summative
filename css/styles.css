@@ -1092,8 +1092,7 @@ h1, h2, h3, h4 {
     cursor: pointer;
 }
 
-.media-container audio,
-.media-container video {
+.media-container audio {
     width: 100%;
     max-width: 400px;
     border-radius: 8px;

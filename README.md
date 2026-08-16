@@ -35,7 +35,6 @@ This application guides incoming students through:
 # Interactive Media
 - Image hotspots for visual interaction
 - Custom audio player controls
-- Video with timestamp triggers
 
 # Timer & Scoring
 - 10-minute countdown timer

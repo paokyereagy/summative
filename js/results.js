@@ -394,6 +394,56 @@ window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
 // ========================================
+// NAVIGATION HANDLERS
+// ========================================
+
+const navToggle = document.querySelector('.nav-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+if (navToggle) {
+    navToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+    });
+}
+
+const navButtons = document.querySelectorAll('.nav-links button');
+navButtons.forEach((button, index) => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (navLinks) navLinks.classList.remove('active');
+        
+        const currentPath = window.location.pathname;
+        const basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+        
+        switch(index) {
+            case 0:
+                window.location.href = basePath + '/index.html';
+                break;
+            case 1:
+                window.location.href = basePath + '/quiz.html';
+                break;
+            case 2:
+                window.location.href = basePath + '/results.html';
+                break;
+            case 3:
+                window.location.href = basePath + '/contacts.html';
+                break;
+        }
+    });
+});
+
+// Brand logo link handler
+const brandLink = document.querySelector('.brand');
+if (brandLink) {
+    brandLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        const currentPath = window.location.pathname;
+        const basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+        window.location.href = basePath + '/index.html';
+    });
+}
+
+// ========================================
 // INITIALIZATION LOG
 // ========================================
 

@@ -315,6 +315,50 @@ if (navToggle) {
 }
 
 // ========================================
+// NAVIGATION HANDLERS
+// ========================================
+
+const navButtons = document.querySelectorAll('.nav-links button');
+navButtons.forEach((button, index) => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Close mobile menu
+        if (navLinks) navLinks.classList.remove('active');
+        
+        // Get the base path
+        const currentPath = window.location.pathname;
+        const basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+        
+        // Navigate based on button position
+        switch(index) {
+            case 0: // Home
+                window.location.href = basePath + '/index.html';
+                break;
+            case 1: // Quiz
+                window.location.href = basePath + '/quiz.html';
+                break;
+            case 2: // Results
+                window.location.href = basePath + '/results.html';
+                break;
+            case 3: // Contacts
+                window.location.href = basePath + '/contacts.html';
+                break;
+        }
+    });
+});
+
+// Brand logo link handler
+const brandLink = document.querySelector('.brand');
+if (brandLink) {
+    brandLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        const currentPath = window.location.pathname;
+        const basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+        window.location.href = basePath + '/index.html';
+    });
+}
+
+// ========================================
 // INITIALIZATION
 // ========================================
 

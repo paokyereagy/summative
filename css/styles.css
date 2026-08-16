@@ -1,17 +1,17 @@
 /* ================================================================
    FONTS
-   Sora = headings (distinctive, geometric)
+   Sora = headings (distinctive, geometric, more presentable than a
+   default system font stack)
    Inter = body text (highly readable at small sizes)
-   JetBrains Mono = numbers/data (timer, scores, IDs) — gives those
-   elements a "data readout" feel that's easy to scan.
+   JetBrains Mono = numbers/data (timers, scores, IDs)
    ================================================================ */
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
 
 /* ================================================================
    DESIGN TOKENS (CSS Custom Properties)
-   Every color, spacing value, and font in this project is defined
-   once here and reused via var(--name). Change a value here and it
-   updates everywhere automatically.
+   Every color, spacing value, and font is defined once here and
+   reused via var(--name). Change a value here and it updates
+   everywhere automatically.
    ================================================================ */
 :root {
     /* --- Core palette: black, ash, light blue --- */
@@ -22,11 +22,18 @@
     --accent-lighter: #d9eefb;
     --white:          #f7f9fb;
 
-    /* --- Surfaces & text (light theme only) --- */
-    --bg:            #eef2f5;   /* page background */
-    --surface:       #ffffff;   /* card backgrounds */
-    --text:          #10151b;   /* main text color */
-    --text-muted:    #5b6572;   /* secondary text */
+    /* --- Surfaces & text ---
+       FIX (round 2): the previous ash-grey background still read as
+       "basically white". Replaced with a genuine light-blue tone plus
+       a subtle diagonal ash-colored stripe pattern (applied on
+       html/body below) so the background is unmistakably colored and
+       textured, not flat and pale. */
+    --bg:            #cfe6f7;   /* light blue */
+    --bg-deep:       #b7d9ef;   /* deeper light blue, gradient bottom */
+    --stripe-color:  rgba(120, 130, 140, 0.16); /* ash-toned diagonal lines */
+    --surface:       #fbfcfe;   /* card backgrounds — off-white, not pure white */
+    --text:          #000000;   /* FIX: body/heading text is now true black */
+    --text-muted:    #33373c;   /* darkened to stay legible against black headings nearby */
     --border:        rgba(79, 168, 224, 0.18);
     --shadow:        0 12px 40px rgba(10, 14, 20, 0.10);
     --header-bg:     rgba(6, 10, 15, 0.92);
@@ -56,8 +63,6 @@
 
 /* ================================================================
    RESET & BASE
-   Removes browser default spacing so our spacing scale above is the
-   only source of truth.
    ================================================================ */
 * {
     margin: 0;
@@ -68,7 +73,22 @@
 html, body {
     height: 100%;
     font-family: var(--font-base);
+    /* FIX (round 2): light-blue base color, with a repeating diagonal
+       stripe layer in ash tone on top, then a subtle top-to-bottom
+       gradient underneath for depth. Multiple background-image layers
+       are comma-separated, painted in the order listed (stripes on
+       top of the gradient). */
     background-color: var(--bg);
+    background-image:
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 34px,
+            var(--stripe-color) 34px,
+            var(--stripe-color) 38px
+        ),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+    background-attachment: fixed;
     color: var(--text);
     line-height: 1.6;
     scroll-behavior: smooth;
@@ -88,6 +108,26 @@ h1, h2, h3, h4 {
     padding: 0 var(--spacing-md);
 }
 
+@media (max-width: 1024px) {
+    .container {
+        width: 95%;
+        padding: 0 var(--spacing-sm);
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 0 var(--spacing-md);
+    }
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+}
+
 /* ================================================================
    FOCUS & ACCESSIBILITY
    ================================================================ */
@@ -101,6 +141,44 @@ h1, h2, h3, h4 {
         animation-duration: 0.001ms !important;
         transition-duration: 0.001ms !important;
     }
+}
+
+/* ================================================================
+   ICONS
+   Small inline SVGs used instead of emoji, taken from the earlier
+   project's design system so both stay visually consistent. Each
+   icon just takes on whatever text color surrounds it.
+   ================================================================ */
+.icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vertical-align: -0.15em;
+}
+
+.icon-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(79, 168, 224, 0.14);
+    border: 1px solid rgba(79, 168, 224, 0.3);
+    color: var(--accent-light);
+    font-size: 1.3rem;
+    margin: 0 auto 0.5rem;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.feature-card:hover .icon-badge {
+    transform: translateY(-3px) scale(1.06);
+    background: rgba(79, 168, 224, 0.24);
 }
 
 /* ================================================================
@@ -121,6 +199,8 @@ h1, h2, h3, h4 {
 .nav-container {
     display: flex;
     align-items: center;
+    /* Brand stays left; nav-links group sits at the far right — this
+       is the main fix for the "odd" header arrangement. */
     justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
@@ -150,6 +230,7 @@ h1, h2, h3, h4 {
 
 .nav-links {
     display: flex;
+    align-items: center;
     list-style: none;
     gap: var(--spacing-sm);
 }
@@ -175,6 +256,23 @@ h1, h2, h3, h4 {
 .nav-links li button.active {
     color: var(--white);
     background: rgba(79, 168, 224, 0.2);
+}
+
+/* ----------------------------------------------------------------
+   FIX: "put the Home / index.html quick link at the extreme end
+   of the page". Since nav-links is already the right-hand group in
+   the header, the remaining ask is for the Home link specifically
+   to sit at the very last (rightmost) position within that group,
+   rather than first.
+
+   This assumes Home is currently the FIRST <li> in your nav-links
+   markup (the most common way to build it). If that's the case,
+   this rule alone pushes it to the end without touching your HTML.
+   If Home isn't the first <li>, give that <li> a class like
+   "nav-home" instead and swap the selector below for ".nav-home".
+   ---------------------------------------------------------------- */
+.nav-links li:first-child {
+    order: 99;
 }
 
 .nav-toggle {
@@ -209,46 +307,155 @@ h1, h2, h3, h4 {
 /* ================================================================
    LANDING PAGE HERO
    ================================================================ */
+/* ================================================================
+   LANDING PAGE HERO
+   ================================================================ */
 .landing-hero {
     min-height: calc(100vh - 80px);
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--hero-gradient);
-    padding: 40px 0;
+    padding: var(--spacing-2xl) var(--spacing-md);
+    position: relative;
+    overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+    .landing-hero {
+        padding: var(--spacing-xl) var(--spacing-md);
+    }
+}
+
+@media (max-width: 768px) {
+    .landing-hero {
+        padding: var(--spacing-lg) var(--spacing-md);
+        min-height: auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .landing-hero {
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+}
+
+/* ----------------------------------------------------------------
+   Decorative animated line across the hero background — a small
+   signature touch carried over from the earlier project. Purely
+   visual; give it aria-hidden="true" in the HTML.
+   ---------------------------------------------------------------- */
+.hero-route-line {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.hero-route-line path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-dasharray: 8 10;
+    animation: dashTravel 6s linear infinite;
+    opacity: 0.55;
+}
+
+.hero-route-line circle {
+    fill: var(--accent-light);
+    animation: waypointPulse 3.2s ease-in-out infinite;
+}
+
+@keyframes dashTravel {
+    to { stroke-dashoffset: -180; }
+}
+
+@keyframes waypointPulse {
+    0%, 100% { opacity: 0.5; r: 4; }
+    50%      { opacity: 1;   r: 5.5; }
 }
 
 .landing-grid {
     display: flex;
-    align-items: center;
+    align-items: top;
+    justify-content: top;
     gap: var(--spacing-2xl);
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
 }
 
 .landing-content {
-    flex: 1 1 50%;
+    flex: 1 1 45%;
     color: var(--white);
+    animation: fadeSlideUp 0.7s ease-out both;
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+    .landing-content {
+        flex: 1 1 100%;
+        text-align: center;
+    }
 }
 
 .landing-badge {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(79, 168, 224, 0.3);
     color: var(--accent-lighter);
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    padding: 0.4rem 1.2rem;
+    padding: 0.5rem 1.2rem;
     border-radius: 40px;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
     margin-bottom: var(--spacing-lg);
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .landing-badge {
+        justify-content: center;
+        width: 100%;
+        max-width: fit-content;
+    }
 }
 
 .landing-title {
     font-family: var(--font-display);
     font-size: 3.4rem;
     font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: var(--spacing-md);
+    line-height: 1.2;
+    margin-bottom: var(--spacing-lg);
+    letter-spacing: -0.5px;
+}
+
+@media (max-width: 1024px) {
+    .landing-title {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .landing-title {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .landing-title {
+        font-size: 1.8rem;
+    }
 }
 
 .landing-title span {
@@ -257,20 +464,118 @@ h1, h2, h3, h4 {
 
 .landing-description {
     font-size: 1.1rem;
-    line-height: 1.7;
+    line-height: 1.8;
     max-width: 520px;
     color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .landing-description {
+        font-size: 1rem;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+}
+
+/* ----------------------------------------------------------------
+   Optional feature-card row (Strengths/Interests/Goals-style cards)
+   and quick stats row, carried over from the earlier project. Safe
+   to delete this block if your markup doesn't use these classes.
+   ---------------------------------------------------------------- */
+.feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.06);
+    padding: 1.1rem 0.8rem;
+    border-radius: 14px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(79, 168, 224, 0.35);
+}
+
+.feature-card .feature-title {
+    font-weight: 600;
+    color: var(--white);
+    font-size: 0.92rem;
+}
+
+.feature-card .feature-desc {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.78rem;
+    margin-top: 0.2rem;
+}
+
+.stats-row {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.2rem;
+}
+
+.stat-item .stat-number {
+    font-family: var(--font-mono);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent-light);
+}
+
+.stat-item .stat-label {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.8rem;
 }
 
 /* ================================================================
    LANDING FORM
    ================================================================ */
 .landing-form-container {
-    flex: 1 1 40%;
-    background: rgba(255, 255, 255, 0.96);
+    flex: 1 1 45%;
+    background: rgba(251, 252, 254, 0.97);
     padding: 2.5rem;
     border-radius: 24px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.25), 0 8px 16px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+    animation: fadeSlideUp 0.7s 0.15s ease-out both;
+    min-width: 320px;
+}
+
+@media (max-width: 1024px) {
+    .landing-form-container {
+        flex: 1 1 50%;
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .landing-form-container {
+        flex: 1 1 100%;
+        width: 100%;
+        max-width: 500px;
+        padding: 2rem;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .landing-form-container {
+        padding: 1.5rem;
+    }
+}
+
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .landing-form-container h3 {
@@ -289,6 +594,20 @@ h1, h2, h3, h4 {
     color: var(--text-muted);
 }
 
+/* Optional decorative progress dots above a multi-step form */
+.progress-dots {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.progress-dots span {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+}
+
 /* ================================================================
    FORM FIELDS
    ================================================================ */
@@ -296,34 +615,48 @@ h1, h2, h3, h4 {
     margin-bottom: var(--spacing-lg);
 }
 
+@media (max-width: 640px) {
+    .form-group {
+        margin-bottom: var(--spacing-md);
+    }
+}
+
 .form-group label {
     display: block;
     font-weight: 600;
     color: var(--text);
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
     font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+@media (max-width: 640px) {
+    .form-group label {
+        font-size: 0.9rem;
+    }
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 0.875rem 1rem;
     font-size: 1rem;
     border: 2px solid var(--border);
     border-radius: 12px;
     background: var(--bg);
-    transition: border 0.25s ease, background 0.25s ease;
+    transition: border 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
     font-family: inherit;
     color: var(--text);
+    line-height: 1.5;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(20, 36, 51, 0.1);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(79, 168, 224, 0.15), inset 0 0 0 1px rgba(79, 168, 224, 0.1);
     background: var(--surface);
 }
 
@@ -371,20 +704,30 @@ h1, h2, h3, h4 {
     margin-top: 0.2rem;
 }
 
+.hint {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    display: block;
+    margin-top: 0.3rem;
+    font-weight: 400;
+}
+
 /* ================================================================
    BUTTONS
    ================================================================ */
 .btn {
     display: inline-block;
-    padding: 0.8rem 2.2rem;
+    padding: 0.875rem 2.2rem;
     border-radius: 50px;
     font-weight: 600;
     font-size: 1rem;
     border: 2px solid transparent;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.3s ease, transform 0.2s ease;
     font-family: var(--font-base);
     text-align: center;
+    line-height: 1.5;
+    position: relative;
 }
 
 .btn-primary {
@@ -399,8 +742,8 @@ h1, h2, h3, h4 {
 
 .btn-primary:not(:disabled):hover {
     background: var(--accent-light);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(79, 168, 224, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(79, 168, 224, 0.5), 0 0 0 4px rgba(79, 168, 224, 0.1);
 }
 
 .btn-primary:disabled {
@@ -446,19 +789,134 @@ h1, h2, h3, h4 {
 }
 
 /* ================================================================
-   SECTION TITLES
+   SECTIONS
    ================================================================ */
+.section {
+    padding: var(--spacing-2xl) 0;
+    background: var(--surface);
+    margin: 0;
+}
+
+@media (max-width: 1024px) {
+    .section {
+        padding: var(--spacing-xl) 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: var(--spacing-lg) 0;
+    }
+}
+
 .section-title {
     font-family: var(--font-display);
     font-size: 2.4rem;
     color: var(--heading-title);
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+    line-height: 1.2;
+    letter-spacing: -0.3px;
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 640px) {
+    .section-title {
+        font-size: 1.6rem;
+    }
 }
 
 .section-subtitle {
     color: var(--text-muted);
     font-size: 1.1rem;
     margin-bottom: var(--spacing-lg);
+    text-align: center;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 768px) {
+    .section-subtitle {
+        font-size: 1rem;
+    }
+}
+
+/* ================================================================
+   SPECIALISATIONS GRID
+   ================================================================ */
+.specialisation-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+}
+
+@media (max-width: 1024px) {
+    .specialisation-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+}
+
+@media (max-width: 768px) {
+    .specialisation-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+}
+
+.spec-card {
+    background: var(--surface);
+    padding: var(--spacing-lg);
+    border-radius: 20px;
+    text-align: center;
+    border: 2px solid var(--border);
+    box-shadow: 0 10px 30px rgba(10, 14, 20, 0.08), 0 4px 8px rgba(10, 14, 20, 0.04);
+    transition: all 0.3s ease;
+}
+
+.spec-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent);
+    box-shadow: 0 20px 60px rgba(79, 168, 224, 0.25), 0 0 0 1px rgba(79, 168, 224, 0.1);
+}
+
+.spec-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    background: var(--accent-lighter);
+    border-radius: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80px;
+}
+
+.spec-card h3 {
+    font-size: 1.3rem;
+    color: var(--heading-title);
+    margin-bottom: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+    font-family: var(--font-display);
+    line-height: 1.4;
+}
+
+.spec-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin: 0;
 }
 
 /* ================================================================
@@ -1007,10 +1465,17 @@ h1, h2, h3, h4 {
 }
 
 .footer-brand h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 1.4rem;
     color: var(--white);
     margin-bottom: var(--spacing-sm);
     font-family: var(--font-display);
+}
+
+.footer-brand h3 .icon {
+    color: var(--accent-light);
 }
 
 .footer-brand p {
@@ -1067,19 +1532,16 @@ h1, h2, h3, h4 {
     .landing-grid {
         flex-direction: column;
         text-align: center;
-    }
-
-    .landing-title {
-        font-size: 2.4rem;
-    }
-
-    .landing-form-container {
-        width: 100%;
-        padding: 1.5rem;
+        gap: var(--spacing-lg);
+        padding: 0 var(--spacing-sm);
     }
 
     .footer-grid {
         grid-template-columns: 1fr;
+    }
+
+    .stats-row {
+        justify-content: center;
     }
 
     .nav-links {
@@ -1092,6 +1554,9 @@ h1, h2, h3, h4 {
     .nav-links.active {
         display: flex;
     }
+
+    /* On mobile the dropdown lists top-to-bottom, so the "push Home
+       to the end" trick above still keeps it as the last item. */
 
     .nav-toggle {
         display: block;
@@ -1123,32 +1588,42 @@ h1, h2, h3, h4 {
     .quiz-card {
         padding: var(--spacing-lg);
     }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
     .landing-title {
-        font-size: 1.9rem;
+        font-size: 1.8rem;
     }
 
     .landing-form-container {
-        padding: 1rem;
+        padding: 1.5rem;
     }
 
     .landing-form-container h3 {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
+        margin-bottom: var(--spacing-md);
     }
 
     .btn {
-        padding: 0.7rem 1.6rem;
-        font-size: 0.9rem;
+        padding: 0.8rem 1.8rem;
+        font-size: 0.95rem;
+    }
+
+    .form-group {
+        margin-bottom: var(--spacing-md);
     }
 
     .result-card {
-        padding: var(--spacing-sm) var(--spacing-md);
+        padding: var(--spacing-md) var(--spacing-lg);
     }
 
     .results-actions {
         flex-direction: column;
+        gap: var(--spacing-sm);
     }
 
     .results-actions .btn {
@@ -1156,11 +1631,39 @@ h1, h2, h3, h4 {
     }
 
     .contact-form-wrapper {
-        padding: var(--spacing-md);
+        padding: var(--spacing-lg);
     }
 
     .timer-display {
         font-size: 1.4rem;
         min-width: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --spacing-lg: 1.5rem;
+    }
+
+    .landing-title {
+        font-size: 1.6rem;
+    }
+
+    .landing-description {
+        font-size: 0.95rem;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 16px;
     }
 }

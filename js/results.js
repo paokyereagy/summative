@@ -49,7 +49,7 @@ function displayResults(data) {
     
     // Update greeting
     if (student && student.fullName) {
-        studentGreeting.textContent = `🎉 ${student.fullName}, here's your specialisation profile!`;
+        studentGreeting.textContent = ` ${student.fullName}, here's your specialisation profile!`;
     }
 
     // Build scores summary
@@ -86,7 +86,7 @@ function displayResults(data) {
         summaryHTML += `
             <div class="result-card" style="border-left-color: var(--success);">
                 <div>
-                    <span class="result-title">⏱️ Speed Bonus</span>
+                    <span class="result-title"> Speed Bonus</span>
                     <span class="result-score">+${timeBonus} pts</span>
                 </div>
                 <small style="color: var(--text-light);">Bonus for completing the quiz ahead of time!</small>
@@ -103,25 +103,25 @@ function displayResults(data) {
     
     const recommendationsData = {
         low_level: {
-            title: '⚙️ Low-Level Programming',
+            title: ' Low-Level Programming',
             description: 'You show strong aptitude for systems-level thinking, performance optimization, and hardware interaction.',
             skills: ['C/C++', 'Assembly', 'Embedded Systems', 'Memory Management', 'OS Development'],
             careers: ['Systems Engineer', 'Embedded Developer', 'Firmware Engineer', 'Game Engine Developer']
         },
         ar_vr: {
-            title: '🥽 AR/VR Development',
+            title: ' AR/VR Development',
             description: 'You have a natural affinity for immersive experiences, 3D graphics, and interactive storytelling.',
             skills: ['Unity', 'Unreal Engine', '3D Modeling', 'C#', 'Spatial Computing'],
             careers: ['AR/VR Developer', '3D Graphics Engineer', 'Game Developer', 'UX Designer']
         },
         full_stack: {
-            title: '🌐 Full-Stack Web Development',
+            title: ' Full-Stack Web Development',
             description: 'You excel at building complete web applications, from user interfaces to server-side logic.',
             skills: ['JavaScript/TypeScript', 'React/Angular', 'Node.js', 'Databases', 'REST APIs'],
             careers: ['Full-Stack Developer', 'Frontend Engineer', 'Backend Engineer', 'DevOps Engineer']
         },
         machine_learning: {
-            title: '🤖 Machine Learning',
+            title: ' Machine Learning',
             description: 'You demonstrate strong analytical skills and a passion for AI, data science, and pattern recognition.',
             skills: ['Python', 'TensorFlow/PyTorch', 'Statistics', 'Data Visualization', 'Neural Networks'],
             careers: ['ML Engineer', 'Data Scientist', 'AI Researcher', 'Data Analyst']
@@ -132,7 +132,7 @@ function displayResults(data) {
     if (recommended && recommendationsData[recommended]) {
         const rec = recommendationsData[recommended];
         recommendationHTML = `
-            <h3>🎯 Your Recommended Specialisation</h3>
+            <h3> Your Recommended Specialisation</h3>
             <div class="recommendation-card">
                 <h3>${rec.title}</h3>
                 <p>${rec.description}</p>
@@ -144,13 +144,13 @@ function displayResults(data) {
                     <strong style="color: var(--dark);">Career Paths:</strong>
                     <span>${rec.careers.join(' • ')}</span>
                 </div>
-                <span class="spec-badge">⭐ Recommended</span>
+                <span class="spec-badge"> Recommended</span>
             </div>
         `;
     } else {
         recommendationHTML = `
             <div class="recommendation-card" style="border-left-color: var(--warning);">
-                <h3>🤔 Need More Data?</h3>
+                <h3> Need More Data?</h3>
                 <p>We need a bit more information to determine your ideal specialisation. 
                 Consider retaking the quiz and answering all questions carefully.</p>
                 <a href="quiz.html" class="btn btn-primary" style="margin-top: 12px;">Retake Quiz</a>

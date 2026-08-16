@@ -237,7 +237,7 @@ function renderQuestion(index) {
             <span class="question-number">Question ${index + 1} of ${totalQuestions}</span>
             <h3>${question.question}</h3>
             ${optionsHTML}
-            ${question.explanation && state.answers[index] !== null ? `<p class="explanation">💡 ${question.explanation}</p>` : ''}
+            ${question.explanation && state.answers[index] !== null ? `<p class="explanation"> ${question.explanation}</p>` : ''}
         </div>
     `;
 

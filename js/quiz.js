@@ -81,13 +81,13 @@ const questions = [
     {
         id: 6,
         category: 'ar_vr',
-        question: 'Which technology is used to create immersive 3D environments that replace the real world?',
+        question: '',
         type: 'image_hotspot',
-        image: 'assets/images/vr-headset.jpg',
+        image: '../assets/Gemini_Generated_Image_dlzm6zdlzm6zdlzm (1).jpg',
         hotspots: [
-            { x: 20, y: 30, label: 'VR', value: 'Virtual Reality' },
-            { x: 60, y: 40, label: 'AR', value: 'Augmented Reality' },
-            { x: 40, y: 70, label: 'MR', value: 'Mixed Reality' }
+            { x: 18, y: 38, label: 'VR', value: 'Virtual Reality' },
+            { x: 50, y: 38, label: 'AR', value: 'Augmented Reality' },
+            { x: 82, y: 38, label: 'MR', value: 'Mixed Reality' }
         ],
         correct: 'VR',
         explanation: 'Virtual Reality creates fully immersive 3D environments that completely replace the real world.'
@@ -111,7 +111,7 @@ const questions = [
         category: 'machine_learning',
         question: 'Which algorithm is commonly used for classification tasks?',
         type: 'audio_prompt',
-        audio: 'assets/audio/ml-explanation.mp3',
+        audio: '../assets/NoteGPT_Speech_1786946706622.mp3',
         options: [
             'Linear Regression',
             'Decision Trees',
@@ -139,8 +139,7 @@ const questions = [
         id: 10,
         category: 'full_stack',
         question: 'Which of the following is a NoSQL database?',
-        type: 'video_prompt',
-        video: 'assets/video/nosql-explainer.mp4',
+        type: 'multiple_choice',
         options: [
             'MySQL',
             'PostgreSQL',

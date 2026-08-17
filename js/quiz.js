@@ -190,7 +190,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const studentData = sessionStorage.getItem('studentData');
     if (!studentData) {
         // Redirect to landing if no student data
-        window.location.href = 'index.html';
+        const homePath = window.location.pathname.includes('/html/') ? '../index.html' : './index.html';
+        window.location.href = homePath;
         return;
     }
 

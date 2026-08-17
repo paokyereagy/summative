@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const resultsData = sessionStorage.getItem('quizResults');
     if (!resultsData) {
         // Redirect to quiz if no results
-        window.location.href = 'quiz.html';
+        const quizPath = window.location.pathname.includes('/html/') ? './quiz.html' : './html/quiz.html';
+        window.location.href = quizPath;
         return;
     }
 

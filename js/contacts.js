@@ -346,26 +346,27 @@ if (navToggle) {
 // ========================================
 
 const navButtons = document.querySelectorAll('.nav-links button');
+const isHtmlPage = window.location.pathname.includes('/html/');
+const appHome = isHtmlPage ? '../index.html' : './index.html';
+const appPage = (page) => isHtmlPage ? `./${page}` : `./html/${page}`;
+
 navButtons.forEach((button, index) => {
     button.addEventListener('click', function(e) {
         e.preventDefault();
         if (navLinks) navLinks.classList.remove('active');
         
-        const currentPath = window.location.pathname;
-        const basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
-        
         switch(index) {
             case 0:
-                window.location.href = basePath + '/index.html';
+                window.location.href = appHome;
                 break;
             case 1:
-                window.location.href = basePath + '/quiz.html';
+                window.location.href = appPage('quiz.html');
                 break;
             case 2:
-                window.location.href = basePath + '/results.html';
+                window.location.href = appPage('results.html');
                 break;
             case 3:
-                window.location.href = basePath + '/contacts.html';
+                window.location.href = appPage('contacts.html');
                 break;
         }
     });
@@ -376,9 +377,7 @@ const brandLink = document.querySelector('.brand');
 if (brandLink) {
     brandLink.addEventListener('click', function(e) {
         e.preventDefault();
-        const currentPath = window.location.pathname;
-        const basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
-        window.location.href = basePath + '/index.html';
+        window.location.href = appHome;
     });
 }
 
